@@ -16,13 +16,13 @@ USBTMC Driver:
   the driver WAS NOT installed.
 
 Installing USBTMC on Tinkerboard Instructions:
-Get the latest linux headers for your image:
+-Get the latest linux headers for your image
   1) sudo apt-get update
   2) sudo apt-get install linux-headers-rockchip
-Compile build scripts:
+-Compile build scripts
   1) cd /usr/src/linux-headers-4.4.102-rockchip/
   2) sudo make scripts ARCH=arm
-Download driver sources from git:
+-Download driver sources from git
   1) cd ~
   2) git clone https://github.com/dpenkler/linux-usbtmc.git linux-usbtmc
 -Make and Install Driver
