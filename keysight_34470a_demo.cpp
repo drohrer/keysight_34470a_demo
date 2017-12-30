@@ -63,7 +63,7 @@ int main( int argc, char *argv[] )
 	int myfile;
 	char buffer[4000];
 	char cmd[128];
-	char mydev[128] = "/dev/usbtmc"; //Use usbtmc0 for rpi, usbtmc1 for ubuntu 16.04
+	char mydev[128] = "/dev/usbtmc";
 
 	//Handle Input Args, should be a single arg of integer 0 to 16
 	if(argc != 2 && atoi(argv[1]) >-1 && atoi(argv[1]) <17)
@@ -78,13 +78,13 @@ int main( int argc, char *argv[] )
 			strcat(mydev, argv[1]);
 	}
 
-	//Only need this line for the tinkerboard or other system where drive is not loaded by default
+	//Only need this line for the tinkerboard or other system where driver is not loaded by default
 	//system("ls -la /dev/usbtmc*; sudo rmmod usbtmc; sudo insmod ~/linux-usbtmc/usbtmc.ko;");
 	sprintf(cmd, "sudo chmod a+rw %s", mydev);
 	system(cmd);
 	printf("\n");
 
-	//Open device usbtmc0, change this if running on ubuntu to usbtmc1
+	//Open device usbtmc*, usually 0 for arm/tinker/rpi, 1 for ubuntu
 	myfile=open(mydev,O_RDWR);
 	if(myfile==-1)
 	{
