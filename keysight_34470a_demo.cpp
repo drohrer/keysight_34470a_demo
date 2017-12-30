@@ -53,7 +53,7 @@ int write_usbtmc_meter(int file, char cmd[128])
 	return retval;
 }
 
-int main()
+int main( int argc, char *argv[] )
 {
 	time_t start_time, end_time;
 	int loop_size = 0;
@@ -63,16 +63,23 @@ int main()
 	int myfile;
 	char buffer[4000];
 	char cmd[128];
-	char mydev[128] = "/dev/usbtmc1"; //Use usbtmc0 for rpi, usbtmc1 for ubuntu 16.04
+	char mydev[128] = "/dev/usbtmc"; //Use usbtmc0 for rpi, usbtmc1 for ubuntu 16.04
 
-/*
-	//Load Driver for usbtmc0, change this if running on ubuntu to usbtmc1
-	printf("\n");
-	system("ls -la /dev/usbtmc*; sudo rmmod usbtmc; sudo insmod /home/drohrer/linux-usbtmc/usbtmc.ko;");
-	sprintf(cmd, "sudo chmod a+rw %s", mydev);
-	system(cmd);
-	printf("\n");
-*/
+	//Handle Input Args, should be a single arg of integer 0 to 16
+	if(argc != 2 && atoi(argv[1]) >-1 && atoi(argv[1]) <17)
+	{
+		printf("ERROR! Invalid Input Arguments Expected integer between 0 and 16\n");
+		printf("example usage: ./keysight_34470a_demo 0\n");
+		return 0;
+	}
+	else
+	{
+		if(atoi(argv[1]) >-1 && atoi(argv[1]) <17)
+			strcat(mydev, argv[1]);
+	}
+
+	//Only need this line for the tinkerboard or other system where drive is not loaded by default
+	//system("ls -la /dev/usbtmc*; sudo rmmod usbtmc; sudo insmod ~/linux-usbtmc/usbtmc.ko;");
 	sprintf(cmd, "sudo chmod a+rw %s", mydev);
 	system(cmd);
 	printf("\n");
@@ -84,6 +91,8 @@ int main()
 		printf("ERROR! Could Not Open Device %s\n",mydev);
 		return 0;
 	}
+	else
+		printf("SUCCESS! Opened File %s for communication\n",mydev);
 
 //TEST 0. READ Meter ID
 	printf("\n************************************************************\n");
