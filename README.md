@@ -32,6 +32,8 @@ Installing USBTMC on Tinkerboard Instructions:
 -Plug In Meter and check for /dev/usbtmc*
   1) ls -la /dev/usbtmc*
   2) For all following commands replace * with integer from ls command above.
+-Load Kernel Module (Driver)
+  1) sudo insmod /home/<username>/linux-usbtmc/usbtmc.ko;
 -Change Permissions on /dev/usbtmc*
   1) sudo chmod a+rw /dev/usbtmc*
 -Test Communication
