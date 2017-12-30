@@ -4,6 +4,8 @@ Sample c++ program to communicate with the keysight 34470a digital multi-meter r
 Compile and Run the program:
 -Check where your device lives, usually 1 on Ubunut, 0 on arm based SBCs.
   1) ls -la /dev/usbtmc*
+  2) g++ keysight_34470a_demo.cpp -Wall -o keysight_34470a_demo
+  3) ./keysight_34470a_demo * (Where * is the integer found from #1, usually 0 or 1)
 
 USBTMC Driver:
 -This program relies on the usbtmc driver being installed on the system
